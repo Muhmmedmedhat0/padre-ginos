@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "prepare": "husky install",
     "format": "prettier --write \"**/*.{js,json,md,jsx,tsx,html,mjs}\"",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -17,16 +20,22 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/Muhmmedmedhat0/padre-ginos/issues"
   },
   "homepage": "https://github.com/Muhmmedmedhat0/padre-ginos#readme",
   "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
     "eslint": "^9.9.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "globals": "^15.9.0",
-    "prettier": "^3.8.1"
+    "prettier": "^3.8.1",
+    "vite": "^5.4.2"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   }
 }
