@@ -2,7 +2,7 @@
 
 echo '🏗️👷 Styling and linting your project before committing 🔐✨'
 
-# Check Prettier standards
+# Check Prettier standards (ignoring build directories)
 npx prettier --check "**/*.{js,json,md,jsx,tsx,html,mjs}" --ignore-path .gitignore ||
 (
 	echo '💅❌ Whoops! Your code needs a beauty makeover 💄
@@ -10,13 +10,34 @@ npx prettier --check "**/*.{js,json,md,jsx,tsx,html,mjs}" --ignore-path .gitigno
 	false;
 )
 
-# Check ESLint Standards
-npx eslint "**/*.{js,jsx,ts,tsx}" ||
+# Check ESLint Standards (using flat config)
+npx eslint . ||
 (
 	echo '🧹🚫 Uh-oh, some lint just tripped you up! 😬
 		🧠 Fix the issues above, clean up your act, and take another shot! 🎯';
     false;
 )
+
+# TODO: Uncomment when migrating from JS to TS
+# # Check tsconfig standards
+# npm run check-types ||
+# (
+#     echo '🔍🤓 Type check failed!
+#     🧩 Looks like some types are playing hide-and-seek 😅
+#     🎯 Let's fix 'em and make TypeScript proud!';
+#     false;
+# )
+
+# TODO: Uncomment when a build script is added
+# # Try to build
+# echo '🏗️🧠 Checking if everything is ready to launch... Hold tight! 🚀'
+#
+# npm run build ||
+# (
+#     echo '🛑🏚️ Yikes! The build collapsed like a Jenga tower!
+#     🔧 Check those errors, fix it up, and we'll be back on track!';
+#     false;
+# )
 
 # All checks passed
 echo '🎉🎉 Everything looks *awesome*! 🚀 Time to commit this masterpiece 🎨✅'
