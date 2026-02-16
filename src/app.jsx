@@ -1,8 +1,6 @@
-// import React from "react";
-import ReactDOM from "react-dom/client";
-import { Pizza } from "./pizaa";
+import { Pizza } from "./components/pizza";
 
-const app = () => {
+export default function App() {
   return (
     <>
       <h1>Welcome to Padre Gino&apos;s Pizzeria</h1>
@@ -16,8 +14,4 @@ const app = () => {
       />
     </>
   );
-};
-
-const container = document.getElementById("root");
-const root = ReactDOM.createRoot(container);
-root.render(app());
+}
