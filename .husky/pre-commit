@@ -1,0 +1,22 @@
+#!/bin/sh
+
+echo '🏗️👷 Styling and linting your project before committing 🔐✨'
+
+# Check Prettier standards
+npx prettier --check "**/*.{js,json,md,jsx,tsx,html,mjs}" --ignore-path .gitignore ||
+(
+	echo '💅❌ Whoops! Your code needs a beauty makeover 💄
+		💥 Prettier check failed! Run: `npm run format`, clean it up, and try again! You got this 💪';
+	false;
+)
+
+# Check ESLint Standards
+npx eslint "**/*.{js,jsx,ts,tsx}" ||
+(
+	echo '🧹🚫 Uh-oh, some lint just tripped you up! 😬
+		🧠 Fix the issues above, clean up your act, and take another shot! 🎯';
+    false;
+)
+
+# All checks passed
+echo '🎉🎉 Everything looks *awesome*! 🚀 Time to commit this masterpiece 🎨✅'
