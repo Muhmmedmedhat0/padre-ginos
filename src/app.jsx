@@ -1,9 +1,8 @@
-import { Pizza } from "./components/pizza";
+import { Pizza } from "./components/pizza/index";
 
 export default function App() {
   return (
     <>
-      <h1>Welcome to Padre Gino&apos;s Pizzeria</h1>
       <Pizza
         name="Margherita"
         description="Tomato sauce, mozzarella, and basil"
