@@ -1,20 +1,17 @@
 import { useState, useEffect } from "react";
 import { Pizza } from "../pizza";
+import { currencyFormatter } from "../../utils/currency";
 
 export function Order() {
   const [pizzaType, setPizzaType] = useState("pepperoni");
   const [pizzaSize, setPizzaSize] = useState("M");
   const [pizzaTypes, setPizzaTypes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const intl = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  });
 
   let price, selectedPizza;
   if (!loading) {
     selectedPizza = pizzaTypes.find((pizza) => pizzaType === pizza.id);
-    price = intl.format(
+    price = currencyFormatter.format(
       selectedPizza.sizes ? selectedPizza.sizes[pizzaSize] : "",
     );
   }
