@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { Pizza } from "../pizza";
 import { currencyFormatter } from "../../utils/currency";
 import { Cart } from "../shared/cart";
@@ -9,35 +9,49 @@ export function Order() {
   const [pizzaTypes, setPizzaTypes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState([]);
-  console.log(`🚀 ~ Order ~ cart =>`, cart);
 
-  let price, selectedPizza;
-  if (!loading) {
-    selectedPizza = pizzaTypes.find((pizza) => pizzaType === pizza.id);
-    price = currencyFormatter.format(
-      selectedPizza.sizes ? selectedPizza.sizes[pizzaSize] : "",
-    );
-  }
+  // Memoize the selected pizza — only recompute when pizzaType or pizzaTypes change
+  const selectedPizza = useMemo(
+    () => pizzaTypes.find((pizza) => pizzaType === pizza.id),
+    [pizzaType, pizzaTypes],
+  );
 
-  async function fetchPizzaTypes() {
-    const res = await fetch("/api/pizzas");
-    const data = await res.json();
-    setPizzaTypes(data);
-    setLoading(false);
-  }
+  // Memoize the formatted price — only recompute when selection or size changes
+  const price = useMemo(() => {
+    if (!selectedPizza?.sizes) return "";
+    return currencyFormatter.format(selectedPizza.sizes[pizzaSize]);
+  }, [selectedPizza, pizzaSize]);
 
+  // Fetch pizza types ONCE on mount — not on every cart change
   useEffect(() => {
+    let cancelled = false;
+    async function fetchPizzaTypes() {
+      const res = await fetch("/api/pizzas");
+      const data = await res.json();
+      if (!cancelled) {
+        setPizzaTypes(data);
+        setLoading(false);
+      }
+    }
     fetchPizzaTypes();
-  }, [cart]);
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    // console.log("Order submitted:", { pizzaType, pizzaSize });
-    // spread entire cart and add new item to end of array
-    setCart((cart) => [...cart, { pizza: selectedPizza, size: pizzaSize }]);
-  }
+  // Stable reference so Cart doesn't re-render unnecessarily
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (!selectedPizza) return;
+      setCart((prev) => [...prev, { pizza: selectedPizza, size: pizzaSize }]);
+    },
+    [selectedPizza, pizzaSize],
+  );
 
-  async function checkout() {
+  // Stable reference — only depends on cart
+  const checkout = useCallback(async () => {
+    if (cart.length === 0) return;
     await fetch("/api/order", {
       method: "POST",
       headers: {
@@ -46,8 +60,8 @@ export function Order() {
       body: JSON.stringify({ cart }),
     });
     setCart([]);
-    setLoading(true);
-  }
+  }, [cart]);
+
   return (
     <div className="order-page">
       <div className="order">

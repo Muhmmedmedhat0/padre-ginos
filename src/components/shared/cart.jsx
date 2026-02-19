@@ -1,6 +1,7 @@
+import { memo } from "react";
 import { currencyFormatter } from "../../utils/currency";
 
-export function Cart({ cart, checkout }) {
+export const Cart = memo(function Cart({ cart, checkout }) {
   const total = cart.reduce(
     (sum, item) => sum + item.pizza.sizes[item.size],
     0,
@@ -26,4 +27,4 @@ export function Cart({ cart, checkout }) {
       </button>
     </div>
   );
-}
+});
