@@ -22,7 +22,7 @@ export const Cart = memo(function Cart({ cart, checkout }) {
         ))}
       </ul>
       <p>Total: {currencyFormatter.format(total)}</p>
-      <button role="button" onClick={checkout} disabled={cart.length === 0}>
+      <button onClick={checkout} disabled={cart.length === 0}>
         Checkout
       </button>
     </div>
