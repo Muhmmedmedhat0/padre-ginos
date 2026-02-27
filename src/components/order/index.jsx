@@ -1,14 +1,15 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, useContext } from "react";
 import { Pizza } from "../pizza";
 import { currencyFormatter } from "../../utils/currency";
 import { Cart } from "../shared/cart";
+import { CartContext } from "../../context/cart";
 
 export function Order() {
   const [pizzaType, setPizzaType] = useState("pepperoni");
   const [pizzaSize, setPizzaSize] = useState("M");
   const [pizzaTypes, setPizzaTypes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useContext(CartContext);
 
   // Memoize the selected pizza — only recompute when pizzaType or pizzaTypes change
   const selectedPizza = useMemo(
@@ -78,9 +79,15 @@ export function Order() {
                 name="pizza-type"
                 value={pizzaType}
               >
-                <option value="pepperoni">The Pepperoni Pizza</option>
-                <option value="hawaiian">The Hawaiian Pizza</option>
-                <option value="big_meat">The Big Meat Pizza</option>
+                {loading ? (
+                  <option>Loading...</option>
+                ) : (
+                  pizzaTypes.map((pizza) => (
+                    <option key={pizza.id} value={pizza.id}>
+                      {pizza.name}
+                    </option>
+                  ))
+                )}
               </select>
             </div>
             <div>
@@ -127,11 +134,13 @@ export function Order() {
             <button type="submit">Add to Cart</button>
           </div>
           <div className="order-pizza">
-            <Pizza
-              name="Pepperoni"
-              description="Mozzarella Cheese, Pepperoni"
-              image="/public/pizzas/pepperoni.webp"
-            />
+            {loading || (
+              <Pizza
+                name={selectedPizza?.name}
+                description={selectedPizza?.description}
+                image={selectedPizza?.image}
+              />
+            )}
             <p>{price}</p>
           </div>
         </form>
