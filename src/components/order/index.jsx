@@ -66,80 +66,72 @@ export function Order() {
     <div className="order-page">
       <div className="order">
         <h2>Create Order</h2>
+
         <form onSubmit={handleSubmit}>
           <div>
             <div>
-              <label htmlFor="pizza-type">
-                Pizza Type
-                <select
-                  id="pizza-type"
-                  onChange={(e) => setPizzaType(e.target.value)}
-                  onBlur={(e) => setPizzaType(e.target.value)}
-                  name="pizza-type"
-                  value={pizzaType}
-                >
-                  {loading ? (
-                    <option>Loading...</option>
-                  ) : (
-                    pizzaTypes.map((pizza) => (
-                      <option key={pizza.id} value={pizza.id}>
-                        {pizza.name}
-                      </option>
-                    ))
-                  )}
-                </select>
-              </label>
+              <label htmlFor="pizza-type">Pizza Type</label>
+              <select
+                id="pizza-type"
+                onChange={(e) => setPizzaType(e.target.value)}
+                onBlur={(e) => setPizzaType(e.target.value)}
+                name="pizza-type"
+                value={pizzaType}
+              >
+                <option value="pepperoni">The Pepperoni Pizza</option>
+                <option value="hawaiian">The Hawaiian Pizza</option>
+                <option value="big_meat">The Big Meat Pizza</option>
+              </select>
             </div>
-            <fieldset aria-labelledby="pizza-size-legend">
-              <legend id="pizza-size-legend">Pizza Size</legend>
-              <label htmlFor="pizza-size-s">
-                <input
-                  id="pizza-size-s"
-                  aria-label="Small"
-                  checked={pizzaSize === "S"}
-                  onChange={(e) => setPizzaSize(e.target.value)}
-                  type="radio"
-                  name="pizza-size"
-                  value="S"
-                />
-                Small
-              </label>
-              <label htmlFor="pizza-size-m">
-                <input
-                  id="pizza-size-m"
-                  aria-label="Medium"
-                  checked={pizzaSize === "M"}
-                  onChange={(e) => setPizzaSize(e.target.value)}
-                  type="radio"
-                  name="pizza-size"
-                  value="M"
-                />
-                Medium
-              </label>
-              <label htmlFor="pizza-size-l">
-                <input
-                  id="pizza-size-l"
-                  aria-label="Large"
-                  checked={pizzaSize === "L"}
-                  onChange={(e) => setPizzaSize(e.target.value)}
-                  type="radio"
-                  name="pizza-size"
-                  value="L"
-                />
-                Large
-              </label>
-            </fieldset>
+            <div>
+              <label htmlFor="pizza-size">Pizza Size</label>
+              <div>
+                <span>
+                  <input
+                    id="pizza-size-s"
+                    aria-label="Small"
+                    checked={pizzaSize === "S"}
+                    onChange={(e) => setPizzaSize(e.target.value)}
+                    type="radio"
+                    name="pizza-size"
+                    value="S"
+                  />
+                  <label htmlFor="pizza-size-s">Small</label>
+                </span>
+                <span>
+                  <input
+                    id="pizza-size-m"
+                    aria-label="Medium"
+                    checked={pizzaSize === "M"}
+                    onChange={(e) => setPizzaSize(e.target.value)}
+                    type="radio"
+                    name="pizza-size"
+                    value="M"
+                  />
+                  <label htmlFor="pizza-size-m">Medium</label>
+                </span>
+                <span>
+                  <input
+                    id="pizza-size-l"
+                    aria-label="Large"
+                    checked={pizzaSize === "L"}
+                    onChange={(e) => setPizzaSize(e.target.value)}
+                    type="radio"
+                    name="pizza-size"
+                    value="L"
+                  />
+                  <label htmlFor="pizza-size-l">Large</label>
+                </span>
+              </div>
+            </div>
             <button type="submit">Add to Cart</button>
           </div>
           <div className="order-pizza">
-            {loading || (
-              <Pizza
-                name={selectedPizza?.name}
-                description={selectedPizza?.description}
-                image={selectedPizza?.image}
-              />
-            )}
-
+            <Pizza
+              name="Pepperoni"
+              description="Mozzarella Cheese, Pepperoni"
+              image="/public/pizzas/pepperoni.webp"
+            />
             <p>{price}</p>
           </div>
         </form>
