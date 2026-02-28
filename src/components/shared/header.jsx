@@ -1,10 +1,8 @@
 import { useContext } from "react";
 
 import { CartContext } from "../../context/cart";
-
-export default function Header() {
+export function Header() {
   const [cart] = useContext(CartContext);
-
   return (
     <nav>
       <h1 className="logo">Padre Gino&#39;s Pizza</h1>
