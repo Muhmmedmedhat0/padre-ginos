@@ -3,6 +3,7 @@ import globals from "globals";
 import prettier from "eslint-config-prettier";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 import reactPlugin from "eslint-plugin-react";
+import pluginQuery from "@tanstack/eslint-plugin-query";
 
 // this for type checking and autocompletion in this file, it has no effect on the actual eslint configuration
 /** @type {import('eslint').Linter.Config[]} */
@@ -21,6 +22,7 @@ export default [
       },
     },
   },
+  ...pluginQuery.configs["flat/recommended"],
   // this is the config that enables the new jsx runtime, which allows us to use JSX without importing React
   reactPlugin.configs.flat["jsx-runtime"],
   {
