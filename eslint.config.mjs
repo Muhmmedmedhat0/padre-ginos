@@ -7,6 +7,9 @@ import reactPlugin from "eslint-plugin-react";
 // this for type checking and autocompletion in this file, it has no effect on the actual eslint configuration
 /** @type {import('eslint').Linter.Config[]} */
 export default [
+  {
+    ignores: ["src/routeTree.gen.ts"],
+  },
   // this is the base config that includes all the recommended rules for JavaScript, including React, JSX, and accessibility rules
   js.configs.recommended,
   {

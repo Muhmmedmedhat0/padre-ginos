@@ -15,9 +15,9 @@ function Index() {
         <li>
           <Link to="/order">Order</Link>
         </li>
-        {/* <li>
+        <li>
           <Link to="/past">Past Orders</Link>
-        </li> */}
+        </li>
       </ul>
     </div>
   );
