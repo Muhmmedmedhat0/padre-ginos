@@ -3,3 +3,9 @@ export async function getPastOrders(page) {
   const data = await response.json();
   return data;
 }
+
+export async function getPastOrder(id) {
+  const response = await fetch(`/api/past-order/${id}`);
+  const data = await response.json();
+  return data;
+}
