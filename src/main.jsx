@@ -7,7 +7,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const router = createRouter({ routeTree });
 
 const App = () => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
 
   return (
     <StrictMode>

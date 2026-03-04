@@ -10,13 +10,11 @@ export function PastOrders() {
   const { isLoading, data } = useQuery({
     queryKey: ["past-orders", page],
     queryFn: () => getPastOrders(page),
-    staleTime: 30000,
   });
 
   const { isLoading: isLoadingOrder, data: order } = useQuery({
     queryKey: ["past-order", focusedOrder],
     queryFn: () => getPastOrder(focusedOrder),
-    staleTime: 86400000, // 1 day in milliseconds
     enabled: !!focusedOrder, // only enabled if focusedOrder is truthy
   });
 
