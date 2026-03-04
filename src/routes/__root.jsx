@@ -5,6 +5,7 @@ import { PizzaOfTheDay } from "../components/shared/pizza-of-the-day";
 import { Header } from "../components/shared/header";
 import { CartContext } from "../context/cart";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ErrorBoundary } from "../components/shared/error-boundary";
 
 export const Route = createRootRoute({
   component: () => {
@@ -12,11 +13,13 @@ export const Route = createRootRoute({
     return (
       <>
         <CartContext.Provider value={cartHook}>
-          <div>
-            <Header />
-            <Outlet />
-            <PizzaOfTheDay />
-          </div>
+          <ErrorBoundary>
+            <div>
+              <Header />
+              <Outlet />
+              <PizzaOfTheDay />
+            </div>
+          </ErrorBoundary>
         </CartContext.Provider>
         <TanStackRouterDevtools />
         <ReactQueryDevtools />
