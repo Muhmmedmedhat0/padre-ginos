@@ -5,7 +5,7 @@ import { useState, useEffect, useDebugValue } from "react";
 // it is a function that return another function that can be used to fetch the pizza of the day
 
 export function usePizzaOfTheDay() {
-  const [pizzaOfTheDay, setPizzaOfTheDay] = useState(void 0);
+  const [pizzaOfTheDay, setPizzaOfTheDay] = useState(null);
   // useDebugValue is a hook that allows us to display a value in the React DevTools
   useDebugValue(
     pizzaOfTheDay
