@@ -1,4 +1,5 @@
-import { memo } from "react";
+// eslint-disable-next-line no-unused-vars
+import React, { memo } from "react";
 import { currencyFormatter } from "../../utils/currency";
 
 export const Cart = memo(function Cart({ cart, checkout }) {

@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-unused-vars
+import React from "react";
 import { render, cleanup } from "@testing-library/react";
 import { expect, test, afterEach } from "vitest";
 import { Pizza } from "../components/pizza/index";
