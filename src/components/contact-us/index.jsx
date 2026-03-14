@@ -6,9 +6,8 @@ import { PostContact } from "../../api/contact";
 export function ContactUs() {
   const mutation = useMutation({
     mutationKey: "contact-us",
-    mutationFn: (e) => {
-      e.preventDefault();
-      const formData = new FormData(e.target);
+    mutationFn: (formData) => {
+      "use server";
       const data = Object.fromEntries(formData.entries());
       console.log(data);
       return PostContact(data);
@@ -20,7 +19,7 @@ export function ContactUs() {
       {mutation.isSuccess ? (
         <h3>Submitted!</h3>
       ) : (
-        <form onSubmit={mutation.mutate}>
+        <form action={mutation.mutate}>
           <input
             id="name"
             name="name"

@@ -40,15 +40,9 @@ export function Order() {
     };
   }, []);
 
-  // Stable reference so Cart doesn't re-render unnecessarily
-  const handleSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
-      if (!selectedPizza) return;
-      setCart((prev) => [...prev, { pizza: selectedPizza, size: pizzaSize }]);
-    },
-    [selectedPizza, pizzaSize],
-  );
+  function addToCart() {
+    setCart((prev) => [...prev, { pizza: selectedPizza, size: pizzaSize }]);
+  }
 
   // Stable reference — only depends on cart
   const checkout = useCallback(async () => {
@@ -68,7 +62,7 @@ export function Order() {
       <div className="order">
         <h2>Create Order</h2>
 
-        <form onSubmit={handleSubmit}>
+        <form action={addToCart}>
           <div>
             <div>
               <label htmlFor="pizza-type">Pizza Type</label>
